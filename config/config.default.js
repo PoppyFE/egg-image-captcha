@@ -6,5 +6,6 @@
  * @property {String} SOME_KEY - some description
  */
 exports.imageCaptcha = {
-
+  maxAge: '2m',
+  captchaImagUrlPrefix: '/captcha/img-captcha',
 };
