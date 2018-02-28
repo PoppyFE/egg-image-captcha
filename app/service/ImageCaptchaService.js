@@ -14,7 +14,7 @@ const Service = require('egg').Service;
 
 class ImageCaptchaService extends Service {
 
-  * svgImageCaptcha() {
+  * svgCaptcha() {
     const imageToken = this.ctx.query.token;
     if (!imageToken) return;
 
@@ -29,12 +29,12 @@ class ImageCaptchaService extends Service {
     this.ctx.body = captchaSVG;
   }
 
-  * createCaptcha() {
+  * createCaptchaToken(maxAge) {
     const { redis } = this.app;
     const { logger } = this.ctx;
 
     const captcha = svgCaptcha.randomText() || '';
-    const imageCaptchaTokenMaxAge = this.config.imageCaptcha.maxAge;
+    const imageCaptchaTokenMaxAge = maxAge || this.config.imageCaptcha.maxAge;
     const imageCaptchaToken = crypto.createHash('md5').update(uuid()).digest('hex');
 
     yield redis.set(imageCaptchaToken, captcha, 'EX', ms(imageCaptchaTokenMaxAge) * 0.001);
