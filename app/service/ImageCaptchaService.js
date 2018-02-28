@@ -14,7 +14,7 @@ const Service = require('egg').Service;
 
 class ImageCaptchaService extends Service {
 
-  * getCaptcha() {
+  * svgImageCaptcha() {
     const imageToken = this.ctx.query.token;
     if (!imageToken) return;
 
